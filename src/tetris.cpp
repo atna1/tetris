@@ -52,7 +52,7 @@ void clearScreen(int width ,int hight)
 	for(int i = 0 ; i < hight; ++i)
 		cout<<endl;
 }
-char getControlSeq(char *seq, size_t len)
+int getControlSeq(char *seq, size_t len)
 {
 	struct termios tio, oldtio;
 
@@ -78,9 +78,8 @@ int main(int argc, const char *argv[])
 	size_t seqLen;
 	char seq[3]={0};
 	int i = 0;
-	while(seqLen=getControlSeq(seq,3))
+	while(getControlSeq(seq,3))
 	{
-		cout<<seqLen<<endl;
 		if(!strcasecmp(seq,"\x1b[A"))
 			cout<<"up arrow"<<endl;
 		if(!strcasecmp(seq,"\x1b[B"))
