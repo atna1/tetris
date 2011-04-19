@@ -1,7 +1,6 @@
-#include <iostream>
 #include <stdio.h>
 #include <termios.h>
-using namespace std;
+#include <ncurses.h>
 #define CELL "\x18\x18"
 #define NEXTLINE "\n"
 #define SPACE "  "
@@ -47,50 +46,60 @@ const char *I[]={
 const char *S[]={//square
 	CELL CELL NEXTLINE CELL CELL
 };
-void clearScreen(int width ,int hight)
+WINDOW *createWin(int nlines, int ncols,int begin_y,int begin_x)
 {
-	for(int i = 0 ; i < hight; ++i)
-		cout<<endl;
+	WINDOW *win = newwin(nlines,ncols,begin_y,begin_x);
+	box(win,0,0);
+	wrefresh(win);
+	return win;
 }
-int getControlSeq(char *seq, size_t len)
+void initScreen()
 {
-	struct termios tio, oldtio;
+	initscr();
+	cbreak();
+	keypad(stdscr,TRUE);
+	noecho();
+	printw("Press F5 to start");
+	refresh();
 
-	tcgetattr(STDIN_FILENO, &oldtio);
-	tcflush(STDIN_FILENO, TCIFLUSH);
-	tio = oldtio;
-#ifndef IUCLC
-# define IUCLC 0
-#endif
-	tio.c_iflag &= ~(IUCLC|IXON|IXOFF|IXANY);
-	tio.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHONL|TOSTOP|ICANON);
-	tio.c_cflag |= (CS8);
-
-	tcsetattr(STDIN_FILENO, TCSANOW, &tio);
-	size_t nRead = fread(seq,len,1,stdin);
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldtio);
-	return nRead;
+}
+void destroyScreen()
+{
+	endwin();
+}
+void initWin(WINDOW *right, WINDOW *left)
+{
+	right = createWin(40,50,1,0);
+	left = createWin(40,30,1,51);
+}
+int run()
+{
+	WINDOW *right,*left;
+	initWin(right,left);
+}
+void readyToStart()
+{
+	run();
+	int ch;
+	while(0 < (ch=getch()))
+	{
+		if(ch == KEY_F(5))
+		{
+			// start
+			break;
+		}
+		else
+		{
+			//print help info
+		
+		}
+	}
 }
 
 int main(int argc, const char *argv[])
 {
-	clearScreen(SCREEN_WIDTH,SCREEN_HIGHT);
-	size_t seqLen;
-	char seq[3]={0};
-	int i = 0;
-	while(getControlSeq(seq,3))
-	{
-		if(!strcasecmp(seq,"\x1b[A"))
-			cout<<"up arrow"<<endl;
-		if(!strcasecmp(seq,"\x1b[B"))
-			cout<<"down arrow"<<endl;
-		if(!strcasecmp(seq,"\x1b[C"))
-			cout<<"left arrow"<<endl;
-		if(!strcasecmp(seq,"\x1b[D"))
-			cout<<"rigth arrow"<<endl;
-	}
-	printf("\x1b[0A");
-	for(int i = 0 ;i < sizeof(S)/sizeof(S[0]);++i)
-		printf("%s\n\n",S[i]);
+	initScreen();
+	readyToStart();
+	destroyScreen();
 	return 0;
 }

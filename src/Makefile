@@ -1,5 +1,5 @@
 all:tetris
-tetris:tetris.cpp
-	g++ -g -o tetris tetris.cpp
+tetris:tetris.c
+	gcc -Wall -g -o tetris tetris.c -lncurses
 clean:
 	rm tetris
