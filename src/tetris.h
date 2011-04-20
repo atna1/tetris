@@ -1,6 +1,8 @@
 #ifndef __TETRIS__H
 #define __TETRIS__H
+
 #include "wins.h"
+
 #define CELL "\x18\x18"
 #define NEXTLINE "\n"
 #define SPACE "  "

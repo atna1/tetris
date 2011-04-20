@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <termios.h>
-#include <ncurses.h>
 #include "tetris.h"
 #include "keyev.h"
 void readyToStart()
@@ -20,6 +19,22 @@ void readyToStart()
 		
 		}
 	}
+}
+void moveLeftHandler()
+{
+	
+}
+void moveRigthHandler()
+{
+
+}
+void graphicChange()
+{
+
+}
+void pauseOrStart()
+{
+
 }
 
 int main(int argc, const char *argv[])

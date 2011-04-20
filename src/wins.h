@@ -7,19 +7,20 @@ typedef struct Window{
 	int ncols;
 	int begin_y;
 	int begin_x;
+	WINDOW *wfd;
 
 }Win;
 typedef struct Screen{
-	Win wins[MAX_WIN_COUNT];
+	Win *wins[MAX_WIN_COUNT];
 	size_t winsCount;
 }Screen;
-enum LayOut{
+typedef enum LayOut{
 	RIGHT = 0,
 	LEFT = 1,
 	LEFT_TOP = 2,
 	LEFT_BOTTOM = 3
-};
-int scrAddWin(Screen *scr, Win *win);
+}LayOut;
+int scrAddWin(Screen *scr, Win *win,LayOut loc);
 WINDOW *createWin(int nlines, int ncols,int begin_y,int begin_x);
 WINDOW *createRightWin();
 WINDOW *createLeftWin();
@@ -28,4 +29,5 @@ WINDOW *createLeftBottomWin();
 
 void initScreen();
 void destroyScreen();
+void ensureLayOut();
 #endif
