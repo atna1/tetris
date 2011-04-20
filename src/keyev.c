@@ -42,7 +42,8 @@ int eventsDel(Iter iter)
 static int call(KEY_EVENT_ENUM type)
 {
 	Iter it;
-	it.loc= events[KEV_UP]->head;
+	if(!events[type]) return E_ERR;
+	it.loc= events[type]->head;
 	while(it.loc !=NULL)
 	{
 		if(it.loc->value)
@@ -60,28 +61,18 @@ int evLoop()
 		switch (c){
 			case KEY_UP:
 				call(KEV_UP);
-				printw("up arraw\n");
-				refresh();
 				break;
 			case KEY_DOWN:
 				call(KEV_DOWN);
-				printw("down arraw\n");
-				refresh();
 				break;
 			case KEY_LEFT:
 				call(KEV_LEFT);
-				printw("left arraw\n");
-				refresh();
 				break;
 			case KEY_RIGHT:
 				call(KEV_RIGHT);
-				printw("right arraw\n");
-				refresh();
 				break;
 			case 0x20:
 				call(KEV_SPACE);
-				printw("pause\n");
-				refresh();
 				break;
 			default:break;
 

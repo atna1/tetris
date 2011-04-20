@@ -20,6 +20,13 @@ typedef enum LayOut{
 	LEFT_TOP = 2,
 	LEFT_BOTTOM = 3
 }LayOut;
+
+Win winRigth;
+Win winLeft;
+Win winLeftTop;
+Win winLeftBottom;
+Screen scr;
+
 int scrAddWin(Screen *scr, Win *win,LayOut loc);
 WINDOW *createWin(int nlines, int ncols,int begin_y,int begin_x);
 WINDOW *createRightWin();

@@ -37,14 +37,17 @@ int NodeUpdate(Iter *loc,Node *node)
 }
 Node *listFirst(List *list)
 {
+	if(!list)return NULL;
 	return list->head;
 }
 Node *listLast(List *list)
 {
+	if(!list)return NULL;
 	return list->tail;
 }
 void listrPush(List *list ,Node *node)
 {
+	if(!list || !node)return;
 	if(list->tail !=NULL)
 	{
 		list->tail->next = node;
@@ -62,6 +65,7 @@ void listrPush(List *list ,Node *node)
 }
 void listlPush(List *list ,Node *node)
 {
+	if(!list || !node)return;
 	if(list->head != NULL)
 	{
 		list->head->prev = node;

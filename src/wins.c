@@ -1,10 +1,5 @@
 #include "wins.h"
 //global windows 
-Win winRigth;
-Win winLeft;
-Win winLeftTop;
-Win winLeftBottom;
-Screen scr;
 
 WINDOW *createWin(int nlines, int ncols,int begin_y,int begin_x)
 {
